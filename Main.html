@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trogie Arcade</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#09090b;color:#fafafa;font:14px Arial,sans-serif}
+header{height:64px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #27272a}
+.logo{font-size:18px;font-weight:700;letter-spacing:-.5px}
+main{max-width:650px;margin:18vh auto 0;padding:20px}
+h1{text-align:center;font-size:32px;letter-spacing:-1px;margin:0 0 10px}
+p{text-align:center;color:#a1a1aa;margin:0 0 28px}
+.search{display:flex;align-items:center;gap:12px;background:#18181b;border:1px solid #27272a;border-radius:16px;padding:6px 8px 6px 16px;transition:border .2s}
+.search:focus-within{border-color:#52525b}
+.search i{width:20px;height:20px;color:#a1a1aa;flex-shrink:0}
+input{width:100%;min-width:0;background:none;border:0;outline:0;color:white;font-size:15px;padding:12px 0}
+input::placeholder{color:#71717a}
+button{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:11px;background:#fafafa;color:#09090b;padding:11px 15px;font-weight:600;cursor:pointer;white-space:nowrap}
+button i{width:16px;height:16px}
+#viewer{display:none;position:fixed;inset:0;background:#09090b;z-index:5}
+#toolbar{height:54px;display:flex;align-items:center;gap:12px;padding:0 12px;background:#111113;border-bottom:1px solid #27272a}
+#back{background:#27272a;color:white;padding:9px 12px}
+#address{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#a1a1aa;font-size:13px}
+#frame{width:100%;height:calc(100% - 54px);height:calc(100dvh - 54px);border:0;display:block;background:white}
+@media(max-width:480px){
+header{height:56px;padding:0 16px}
+main{margin:14vh auto 0;padding:16px}
+h1{font-size:28px}
+.search{gap:9px;padding-left:12px}
+button{padding:11px}
+#toolbar{height:52px}
+#frame{height:calc(100% - 52px);height:calc(100dvh - 52px)}
+}
+</style>
+</head>
+<body>
+<header><div class="logo">Trogie Arcade</div></header>
+<main>
+<h1>What do you want to play?</h1>
+<p>Search the web and explore.</p>
+<form class="search" id="search">
+<i data-lucide="search"></i>
+<input id="query" placeholder="Enter a website or search..." autocomplete="off" required>
+<button type="submit"><i data-lucide="arrow-up-right"></i>Go</button>
+</form>
+</main>
+<div id="viewer">
+<div id="toolbar">
+<button id="back" type="button"><i data-lucide="arrow-left"></i>Back</button>
+<div id="address">Ready</div>
+</div>
+<iframe id="frame" allow="fullscreen; autoplay; clipboard-read; clipboard-write" allowfullscreen></iframe>
+</div>
+<script>
+lucide.createIcons();
+const form=document.getElementById('search'),input=document.getElementById('query'),viewer=document.getElementById('viewer'),frame=document.getElementById('frame'),address=document.getElementById('address');
+let previous=[];
+function openSite(value){
+const url='https://scramjet.mercurywork.shop/?goto='+encodeURIComponent(value);
+if(frame.src)previous.push(frame.src);
+frame.src=url;
+address.textContent=value;
+viewer.style.display='block';
+document.body.style.overflow='hidden';
+}
+form.addEventListener('submit',e=>{
+e.preventDefault();
+const value=input.value.trim();
+if(value)openSite(value);
+});
+document.getElementById('back').addEventListener('click',()=>{
+if(previous.length)frame.src=previous.pop();
+else{
+frame.src='about:blank';
+viewer.style.display='none';
+document.body.style.overflow='';
+}
+});
+</script>
+</body>
+</html>
