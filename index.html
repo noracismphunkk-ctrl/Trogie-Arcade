@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trogie Arcade</title>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 *{box-sizing:border-box}
@@ -15,22 +16,21 @@ i{width:18px;height:18px;flex-shrink:0}
 @media(max-width:480px){
 nav{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px;width:auto;max-width:none;margin:0;gap:2px;padding:5px;border-radius:16px}
 a{flex:1;min-width:0;flex-direction:column;gap:5px;padding:10px 2px;font-size:11px}
-a span{display:block}
 .settings{border-left:0;margin:0;padding:10px 2px}
 }
 </style>
 </head>
 <body>
 <nav>
-<a href="/Main"><i data-lucide="house"></i><span>Main</span></a>
-<a href="/Games"><i data-lucide="gamepad-2"></i><span>Games</span></a>
-<a href="/Cloud.html"><i data-lucide="cloud"></i><span>Cloud</span></a>
-<a href="/Settings" class="settings"><i data-lucide="settings"></i><span>Settings</span></a>
+<a href="/Trogie-Arcade/Main.html"><i data-lucide="house"></i><span>Main</span></a>
+<a href="/Trogie-Arcade/Games.html"><i data-lucide="gamepad-2"></i><span>Games</span></a>
+<a href="/Trogie-Arcade/Cloud.html"><i data-lucide="cloud"></i><span>Cloud</span></a>
+<a href="/Trogie-Arcade/Settings.html" class="settings"><i data-lucide="settings"></i><span>Settings</span></a>
 </nav>
 <script>
 lucide.createIcons();
 document.querySelectorAll('nav a').forEach(a=>{
-if(a.pathname.toLowerCase()===location.pathname.replace(/\/$/,'').toLowerCase())a.classList.add('active');
+if(location.pathname.replace(/\/$/,'').toLowerCase()===a.pathname.toLowerCase())a.classList.add('active');
 });
 </script>
 </body>
